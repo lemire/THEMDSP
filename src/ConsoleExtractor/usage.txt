@@ -1,0 +1,47 @@
+Usage for ConsoleExtractor.exe
+April 19th, 2001
+Daniel Lemire, Ph.D.
+
+Warning: this tool is not meant for day to day use. It is a purposely
+simple console application to extract and process data from THEM Dat
+files. Normally, a GUI tool should wrap the underlying DSP library
+and provide acquisition and realtime processing. PLEASE DO NOT COMPLAIN
+THAT IT IS UNFRIENDLY, IT WASN'T MEANT TO BE.
+
+Warning: THEM Dat file format isn't defined nor supported by anyone.
+The provided support for the THEM Dat is not likely to be perfect but
+it was tested with available Dat files.
+
+
+General usage:
+ConsoleExtractor.exe inputdatfile EMi outputbinfile firsthalfcycle lasthalfcycle baselinecorrection downsampling despikecoef tau outputtextfile integrate
+
+where
+
+inputdatfile	: name of you Dat file (full path)
+EMi 		: EM1, EM2, EM3 or EM4 (the channel you want to extract)
+outputbinfile 	: name of output binary file containing the data you extracted and processed
+firsthalfcycle	: first half-cycle to process
+lasthalfcycle	: last half-cycle to process
+baselinecorrection : whether to correct the baseline 1=true, 0=false
+downsampling	: downsampling (stacking) factor, 0 disables stacking, 6 is a usual value
+despikecoef	: despike coefficient (example 100)
+tau		: whether to apply tau projection 1=true, 0=false
+outputtextfile	: output text file where to put the first 50 half-cycles
+integrate	: whether to integrate offtime data 1=true, 0=false (require tau projection)
+
+Examples: 
+	ConsoleExtractor.exe d:\bob3.dat EM2 test.bin 1 3001 1 1 100 0 rraw.txt
+	ConsoleExtractor.exe d:\bob3.dat EM2 test.bin 1 3001 1 6 100 1 rraw.txt
+	ConsoleExtractor.exe d:\bob3.dat EM2 test.bin 1 3001
+
+Limitations: 
+
+*) integration of offtime values is only possible if tau projection is activated
+*) only one channel can be extracted at a time
+*) extracting very large amount of data will require a long time if tau projection is activated
+	(memory usage should always be small)
+
+Please report bugs to Daniel Lemire at lemire@ondelette.com.
+
+Thanks!
